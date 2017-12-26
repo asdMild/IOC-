@@ -12,21 +12,21 @@ ioc对于反射这一方法的应用，是抽象这个动作的具象化。通�
 //#########################
 main(){
 A a;
-a=ioc_reflect("A");
+a=ioc_reflect<A>("A");
 }
 
-T ioc_reflect(string typename)
+T ioc_reflect<T>(string typename)
 {
   switch(typename)
   {
   case A:
-  retuen A(ioc_reflect("B"),ioc_reflect("C"),ioc_reflect("D"));
+  retuen A(ioc_reflect<B>("B"),ioc_reflect<C>("C"),ioc_reflect<D>("D"));
   break;
   case B:
-  return B(ioc_reflect("C"));
+  return B(ioc_reflect<C>("C"));
   break;
   case C:
-  return C(ioc_reflect("D"));
+  return C(ioc_reflect<D>("D"));
   break;
   case D:
   return D(default(D));
