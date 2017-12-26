@@ -10,7 +10,7 @@ namespace ioc
     {
         static void Main(string[] args)
         {
-           A a=(A) IOC_factory.ioc_reflect<A>(typeof(A));
+           A a=(A) IOC_factory.ioc_reflect(typeof(A));
             Console.WriteLine( a.Get_s());
 
             while (true)

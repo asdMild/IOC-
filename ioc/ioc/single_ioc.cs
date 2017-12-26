@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace ioc
 {
-    public interface interfaces { }
-
-    public class A:interfaces
+    public class A
     {
       public   A(B b,C c,D d) { b_ = b;c_ = c;d_ = d; }
 
@@ -19,11 +17,11 @@ namespace ioc
         
         public float Get_s()
         {
-            return b_.Get_s();
+            return b_.Get_s()== d_.Get_s()? d_.Get_s():0;
         }
 
     }
-    public class B : interfaces
+    public class B 
     {
         public B(C c) { c_ = c; }
         C c_;
@@ -34,7 +32,7 @@ namespace ioc
         }
 
     }
-    public class C : interfaces
+    public class C
     {
         public C(D d)
         { d_ = d; }
@@ -45,7 +43,7 @@ namespace ioc
         }
 
     }
-    public class D : interfaces
+    public class D 
     {
         public D() { }
         public float Get_s()
@@ -58,25 +56,25 @@ namespace ioc
 
    static public class IOC_factory
     {
-        static public object ioc_reflect<T>(Type typename)where T: interfaces
+        static public object ioc_reflect(Type typename)
         {
-            var s = typename.GetConstructors();
-            var j = s[0].GetParameters();
+            var construct_ = typename.GetConstructors();
+            var parameters_ = construct_[0].GetParameters();
 
-            object[] k = new object[j.Length];
-            int l = 0;
-            foreach (ParameterInfo i in j)
+            object[] param = new object[parameters_.Length];
+            int num = 0;
+            foreach (ParameterInfo i in parameters_)
             {
-                k[l] =ioc_reflect<interfaces>(Type.GetType(i.ParameterType.ToString()));
-                Console.WriteLine(k[l]);
-                l++;
+                param[num] =ioc_reflect(Type.GetType(i.ParameterType.ToString()));
+                Console.WriteLine(param[num]);
+                num++;
             }
             
-
-            if(k.Length==0)
+            
+            if(param.Length==0)
             return Activator.CreateInstance(typename);
             else
-            return Convert.ChangeType(Activator.CreateInstance(typename, k), typename);
+            return Activator.CreateInstance(typename, param);
         }
     }
 }
