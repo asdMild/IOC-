@@ -56,6 +56,7 @@ namespace ioc
 
    static public class IOC_factory
     {
+        /*
         static public object ioc_reflect(Type typename)
         {
             var construct_ = typename.GetConstructors();
@@ -75,6 +76,37 @@ namespace ioc
             return Activator.CreateInstance(typename);
             else
             return Activator.CreateInstance(typename, param);
+        }*/
+        static public object ioc_reflect(Type typename,Type[] construct_param=null)
+        {
+            ParameterInfo[] parameters_;
+
+            if (construct_param == null)
+                parameters_ = (typename.GetConstructors())[0].GetParameters();
+            else
+            if (typename.GetConstructor(construct_param) != null)
+                parameters_ = typename.GetConstructor(construct_param).GetParameters();
+            else
+            {
+                Console.WriteLine("there is none construct with those params");
+                parameters_ = (typename.GetConstructors())[0].GetParameters();
+            }
+
+
+            object[] param = new object[parameters_.Length];
+            int num = 0;
+            foreach (ParameterInfo i in parameters_)
+            {
+                param[num] = ioc_reflect(Type.GetType(i.ParameterType.ToString()));
+                Console.WriteLine(param[num]);
+                num++;
+            }
+
+
+            if (param.Length == 0)
+                return Activator.CreateInstance(typename);
+            else
+                return Activator.CreateInstance(typename, param);
         }
     }
 }
