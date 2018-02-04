@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ioc
 {
-    public class monobehaviour:IBinding 
+    public class monobehaviour:IBinding<string>
     {
         private string str;
         public string Str
@@ -24,13 +24,13 @@ namespace ioc
             Console.WriteLine(Str);
         }
     }
-    public interface IBinding
+    public interface IBinding<T>
     {
-        string Str { set; get; }
-        event Action<string> StrBindingEvent;
-        void SetStr(string str);
+        T Str { set; get; }
+        event Action<T> StrBindingEvent;
+        void SetStr(T str);
     }
-    public class single_Binding : IBinding
+    public class single_Binding : IBinding<string>
     {
         private string str;
         public string Str
