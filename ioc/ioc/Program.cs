@@ -28,14 +28,14 @@ namespace ioc
             Console.WriteLine(c.Get_s());
             */
             //single binding achive
-            monobehaviour a = new monobehaviour();
-            single_Binding b=new single_Binding();
-            a.ValueBindingEvent += b.SetValue;
-            b.ValueBindingEvent += a.SetValue;
-            b.Value = "asd";
+            BindingValue<string> a = new BindingValue<string>();
+            BindingValue<string> b = new BindingValue<string>();
+            a.Bind(b.SetValueWithoutInvoke);
+            b.Bind(a.SetValueWithoutInvoke);
+            b.Value= "asd";
+            Console.WriteLine(a.Value);
             a.Value = "ddd";
             Console.WriteLine(b.Value);
-            a.show();
             while (true)
             { }
         }

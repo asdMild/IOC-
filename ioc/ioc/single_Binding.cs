@@ -6,42 +6,29 @@ using System.Threading.Tasks;
 
 namespace ioc
 {
-    public class monobehaviour:IBinding<string>
+    public class BindingValue<T>
     {
-        private string str;
-        public string Value
+        public BindingValue() { ValueBindingEvent += SetValueWithoutInvoke; }
+        T value;
+        public T Value
         {
-            set { str = value; ValueBindingEvent.Invoke(value); }
-            get { return str; }
+            set { ValueBindingEvent.Invoke(value); }
+            get { return value; }
         }
-        public event Action<string> ValueBindingEvent;
-        public void SetValue(string _str)
+        event Action<T> ValueBindingEvent;
+        public void Bind(Action<T> func) { ValueBindingEvent += func; }
+        public void SetValueWithoutInvoke(T _value)
         {
-            str = _str;
-        }
-        public void show()
-        {
-            Console.WriteLine(Value);
+            value = _value;
         }
     }
     public interface IBinding<T>
     {
         T Value { set; get; }
         event Action<T> ValueBindingEvent;
-        void SetValue(T _value);
+        void SetValueWithoutInvoke(T _value);
     }
-    public class single_Binding : IBinding<string>
+    public class single_Binding
     {
-        private string str;
-        public string Value
-        {
-            set { str = value; ValueBindingEvent.Invoke(value); }
-            get { return str; }
-        }
-        public event Action<string> ValueBindingEvent;
-        public void SetValue(string _str)
-        {
-            str = _str;
-        }
     }
 }
