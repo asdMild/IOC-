@@ -9,37 +9,37 @@ namespace ioc
     public class monobehaviour:IBinding<string>
     {
         private string str;
-        public string Str
+        public string Value
         {
-            set { str = value; StrBindingEvent.Invoke(value); }
+            set { str = value; ValueBindingEvent.Invoke(value); }
             get { return str; }
         }
-        public event Action<string> StrBindingEvent;
-        public void SetStr(string _str)
+        public event Action<string> ValueBindingEvent;
+        public void SetValue(string _str)
         {
             str = _str;
         }
         public void show()
         {
-            Console.WriteLine(Str);
+            Console.WriteLine(Value);
         }
     }
     public interface IBinding<T>
     {
-        T Str { set; get; }
-        event Action<T> StrBindingEvent;
-        void SetStr(T str);
+        T Value { set; get; }
+        event Action<T> ValueBindingEvent;
+        void SetValue(T _value);
     }
     public class single_Binding : IBinding<string>
     {
         private string str;
-        public string Str
+        public string Value
         {
-            set { str = value; StrBindingEvent.Invoke(value); }
+            set { str = value; ValueBindingEvent.Invoke(value); }
             get { return str; }
         }
-        public event Action<string> StrBindingEvent;
-        public void SetStr(string _str)
+        public event Action<string> ValueBindingEvent;
+        public void SetValue(string _str)
         {
             str = _str;
         }

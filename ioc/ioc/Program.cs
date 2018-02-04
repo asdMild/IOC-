@@ -30,11 +30,11 @@ namespace ioc
             //single binding achive
             monobehaviour a = new monobehaviour();
             single_Binding b=new single_Binding();
-            a.StrBindingEvent += b.SetStr;
-            b.StrBindingEvent += a.SetStr;
-            b.Str = "asd";
-            a.Str = "ddd";
-            Console.WriteLine(b.Str);
+            a.ValueBindingEvent += b.SetValue;
+            b.ValueBindingEvent += a.SetValue;
+            b.Value = "asd";
+            a.Value = "ddd";
+            Console.WriteLine(b.Value);
             a.show();
             while (true)
             { }
