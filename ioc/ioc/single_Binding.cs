@@ -30,5 +30,6 @@ namespace ioc
     }
     public class single_Binding
     {
+        int a = 2;
     }
 }

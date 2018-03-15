@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="inherit.cs" />
     <Compile Include="single_Binding.cs" />
     <Compile Include="single_ioc.cs" />
     <Compile Include="Program.cs" />
